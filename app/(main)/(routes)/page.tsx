@@ -1,5 +1,5 @@
 import {SignOutButton, UserButton} from "@clerk/nextjs";
-// import NewSignOut from "./NewSignOut";
+// import NewSignOut from './NewSignOut'
 
 export default function Home() {
     return (
@@ -10,6 +10,7 @@ export default function Home() {
                 afterSignOutUrl="/"
             />
             <SignOutButton>SIGN OUT</SignOutButton>
+            {/*<NewSignOut />*/}
             <div>Text After Sign out</div>
         </div>
     )

@@ -1,4 +1,4 @@
-import { useClerk } from "@clerk/clerk-react";
+import { useClerk } from "@clerk/nextjs";
 import { useRouter } from 'next/navigation'
 
 const NewSignOut = () => {
@@ -12,3 +12,4 @@ const NewSignOut = () => {
         </button>
     );
 };
+export default NewSignOut;
