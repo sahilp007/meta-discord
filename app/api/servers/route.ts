@@ -33,6 +33,6 @@ export async function POST(req: Request) {
 		return NextResponse.json(server, {status: 201});
 	} catch (e) {
 		console.log(e);
-		return new NextResponse(JSON.stringify({error: e.message}), {status: 500});
+		return new NextResponse("Internal Error", {status: 500});
 	}
 }
