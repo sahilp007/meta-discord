@@ -49,7 +49,7 @@ export const InitialModal = () => {
 						Welcome to the server!
 					</DialogTitle>
 					<DialogDescription className='text-center text-zinc-500'>
-						You're the first member of this server. You can add more members by clicking the 'Add Member'
+						You are the first member of this server. You can add more members by clicking the 'Add Member'
 						button below.
 					</DialogDescription>
 				</DialogHeader>
