@@ -2,19 +2,20 @@
 
 import {
 	Dialog,
-	DialogTitle,
+	DialogContent,
+	DialogDescription,
 	DialogFooter,
 	DialogHeader,
-	DialogDescription,
-	DialogContent
+	DialogTitle
 } from "@/components/ui/dialog";
-import {Form, FormControl, FormMessage, FormItem, FormLabel, FormField} from "@/components/ui/form";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {useForm} from "react-hook-form";
 import * as z from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useEffect, useState} from "react";
+import {FileUpload} from "@/components/file-upload";
 
 const formSchema = z.object({
 	name: z.string().min(1, {message: "Please enter a server name"}).max(50),
@@ -49,8 +50,7 @@ export const InitialModal = () => {
 						Welcome to the server!
 					</DialogTitle>
 					<DialogDescription className='text-center text-zinc-500'>
-						You are the first member of this server. You can add more members by clicking the Add Member
-						button below.
+						You are the first member of this server! You can add the Server Name and Logo.
 					</DialogDescription>
 				</DialogHeader>
 
@@ -58,7 +58,29 @@ export const InitialModal = () => {
 					<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
 						<div className='space-y-8 pr-7 pl-7'>
 							<div className='flex items-center justify-center text-center'>
-								TODO: Image Upload
+								<FormField
+									name='imageUrl'
+									control={form.control}
+									render={({field}) => (
+										<FormItem className=''>
+											<FormLabel
+												className='uppercase font-bold text—zinc-500 dark:text-secondary/70'>
+												Server Image
+											</FormLabel>
+											<FormControl>
+												<FileUpload
+													endpoint='serverImage'
+													value={field.value}
+													onChange={field.onChange}
+
+												/>
+											</FormControl>
+											<FormMessage className='text-red-500'>
+												{form.formState.errors.imageUrl?.message}
+											</FormMessage>
+										</FormItem>
+									)}
+								/>
 							</div>
 							<FormField name='name'
 							           control={form.control}
