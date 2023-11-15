@@ -1,6 +1,5 @@
 import NavigationSidebar from "@/components/navigation/navigation-sidebar";
 import React from "react";
-import {ModeToggle} from "@/components/providers/ThemeToggle";
 
 const MainLayout = async ({children}: {
 	children: React.ReactNode;
