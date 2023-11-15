@@ -38,7 +38,7 @@ export const InitialModal = () => {
 	})
 	const isLoading = form.formState.isSubmitting;
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		try{
+		try {
 			await axios.post('/api/servers', values);
 
 			form.reset();
@@ -46,8 +46,7 @@ export const InitialModal = () => {
 			window.location.reload();
 
 
-		}
-		catch (e) {
+		} catch (e) {
 			console.error(e);
 		}
 		console.log(values);

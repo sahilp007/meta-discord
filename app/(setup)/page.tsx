@@ -12,16 +12,16 @@ const SetupPage = async () => {
 	const profile = await initialProfile();
 	const server = await db.server.findFirst({
 		where: {
-			members:{
-				some:{
+			members: {
+				some: {
 					profileId: profile.id
 				}
 			}
 		}
 	});
-	if(server){
+	if (server) {
 		return (
-			redirect(`/server/${server.id}`)
+			redirect(`/servers/${server.id}`)
 		);
 	}
 	return (
