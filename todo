@@ -1,0 +1,12 @@
+
+
+1. add ringtone when someone joins a call on a private server
+2. add confirmation modal when leaving a call or a server
+3. make both channels and members list collapsible
+4. when in a private conversation render list of private conversations instead of list of servers
+5. add friends system
+6. add place to see all friends
+7. add filter for friends in a server
+8. when adding a media file to the chat also let an optional text be added
+9. add a way to see all media files sent in a server or a private conversation
+
