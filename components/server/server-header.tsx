@@ -20,7 +20,7 @@ interface ServerHeaderProps {
 const ServerHeader = ({server, role}: ServerHeaderProps) => {
 
 	const isAdmin = role === MemberRole.ADMIN;
-	const isModerator = role === MemberRole.MODERATOR;
+	const isModerator = isAdmin || role === MemberRole.MODERATOR;
 
 
 	return (
@@ -35,18 +35,18 @@ const ServerHeader = ({server, role}: ServerHeaderProps) => {
 					</button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent className='w-56 text-xs font-medium text-black dark:text-gray-300 space-y-[2px]'>
-					{(isModerator||isAdmin) && (
+					{// isModerator &&
 						<DropdownMenuItem
 							className='text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer'>
 							Invite People
 							<UserPlus className='ml-auto h-4 w-4'/>
 						</DropdownMenuItem>
-					)}
-					{isAdmin && (
+					}
+					{isModerator && (
 						<DropdownMenuItem
 							className=' px-3 py-2 text-sm cursor-pointer'>
-							Server Settings
-							<Settings className='ml-auto h-4 w-4'/>
+							Create channel
+							<PlusCircle className='ml-auto h-4 w-4'/>
 						</DropdownMenuItem>
 					)}
 					{isAdmin && (
@@ -56,16 +56,14 @@ const ServerHeader = ({server, role}: ServerHeaderProps) => {
 							<Users className='ml-auto h-4 w-4'/>
 						</DropdownMenuItem>
 					)}
-					{(isModerator||isAdmin) && (
+					{isAdmin && (
 						<DropdownMenuItem
 							className=' px-3 py-2 text-sm cursor-pointer'>
-							Create channel
-							<PlusCircle className='ml-auto h-4 w-4'/>
+							Server Settings
+							<Settings className='ml-auto h-4 w-4'/>
 						</DropdownMenuItem>
 					)}
-					{(isModerator||isAdmin) && (
-						<DropdownMenuSeparator/>
-					)}
+					<DropdownMenuSeparator/>
 					{isAdmin && (
 						<DropdownMenuItem
 							className='text-red-600 dark:text-red-400 px-3 py-2 text-sm cursor-pointer'>
