@@ -24,7 +24,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.290.0",
-    "next": "^14.0.2",
+    "next": "^14.0.3",
     "next-themes": "^0.2.1",
     "node": "^21.1.0",
     "react": "^18",
