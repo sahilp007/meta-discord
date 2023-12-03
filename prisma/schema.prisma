@@ -43,12 +43,11 @@ enum MemberRole {
     ADMIN
     MODERATOR
     MEMBER
-    GUEST
 }
 
 model Member {
     id   String     @id @default(uuid())
-    role MemberRole @default(GUEST)
+    role MemberRole @default(MEMBER)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
