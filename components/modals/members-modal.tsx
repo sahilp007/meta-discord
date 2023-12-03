@@ -59,12 +59,31 @@ export const MembersModal = () => {
 			setLoadingId('')
 		}
 	}
+const onKick = async (memberId: string) => {
+		try {
+			debugger;
+			setLoadingId(memberId);
+			const url = qs.stringifyUrl({
+				url: `/api/members/${memberId}`, query: {
+					serverId: server?.id,
+				}
+			})
 
+			const res = await axios.delete(url);
+			router.refresh();
+			onOpen('members', {server: res.data});
+		} catch (e) {
+			console.log(e)
+		} finally {
+			setLoadingId('')
+		}
+
+}
 	return (<Dialog open={isModalOpen} onOpenChange={onClose}>
 		<DialogContent className="bg-fuchsia-100 text-black p-0 overflow-hidden">
 			<DialogHeader className='pt-8 px-6'>
 				<DialogTitle className='text-2xl text-center'>
-					Manage Members
+					{server?.name.toUpperCase()}
 				</DialogTitle>
 				<DialogDescription className='px-6 pb-3 text-center text-zinc-500'>
 					{server?.members?.length} Members
@@ -85,9 +104,9 @@ export const MembersModal = () => {
 							     className='rounded-full select-none none'/>
 							<div className='flex-1'>
 								<div className='font-semibold flex items-center'>{member.profile?.name}
-									<TooltipProvider>
+									<TooltipProvider delayDuration={100} skipDelayDuration={10}>
 										<Tooltip>
-											<TooltipTrigger>{roleIconMap[member?.role]}</TooltipTrigger>
+											<TooltipTrigger asChild>{roleIconMap[member?.role]}</TooltipTrigger>
 											<TooltipContent>
 												<p>{member.role}</p>
 											</TooltipContent>
@@ -132,7 +151,7 @@ export const MembersModal = () => {
 
 										<DropdownMenuSeparator/>
 
-										<DropdownMenuItem className='text-rose-500 text-sm'>
+										<DropdownMenuItem onClick={()=>onKick(member.id)} className='text-rose-500 text-sm'>
 											<UserX className='h-4 w-4 mr-2 text-rose-500 '/>
 											Kick
 										</DropdownMenuItem>
