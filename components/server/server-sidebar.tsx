@@ -2,11 +2,26 @@ import React from 'react';
 import {currentProfile} from "@/lib/current-profile";
 import {redirect} from "next/navigation";
 import {db} from "@/lib/db";
-import {ChannelType} from "@prisma/client";
+import {ChannelType, MemberRole} from "@prisma/client";
 import ServerHeader from "@/components/server/server-header";
+import {ScrollArea} from "@/components/ui/scroll-area";
+import ServerSearch from "@/components/server/server-search";
+import {Hash, Mic, ShieldAlert, ShieldCheck, Video} from "lucide-react";
 
 interface ServerSidebarProps {
 	serverId: string
+}
+
+const iconMap = {
+	[ChannelType.TEXT]: <Hash className='mr-2 h-4 w-4'/>,
+	[ChannelType.AUDIO]: <Mic className='mr-2 h-4 w-4'/>,
+	[ChannelType.VIDEO]: <Video className='mr-2 h-4 w-4'/>
+}
+
+const roleMap = {
+	[MemberRole.ADMIN]: <ShieldAlert className='text-rose-500 h-4 w-4 mr-2'/>,
+	[MemberRole.MEMBER]: null,
+	[MemberRole.MODERATOR]: <ShieldCheck className='text-indigo-500 h-4 w-4 mr-2'/>,
 }
 
 const ServerSidebar = async ({serverId}: ServerSidebarProps) => {
@@ -23,7 +38,6 @@ const ServerSidebar = async ({serverId}: ServerSidebarProps) => {
 			channels: {
 				orderBy: {
 					createdAt: 'asc'
-
 				}
 			},
 			members: {
@@ -53,6 +67,61 @@ const ServerSidebar = async ({serverId}: ServerSidebarProps) => {
 			server={server}
 			role={role}
 			/>
+			<ScrollArea className='flex-grow'>
+				<div className='flex flex-col space-y-1'>
+					<ServerSearch
+					data={
+						[
+							{
+								data: textChannels?.map(channel => ({
+									icon: iconMap[channel.type],
+									name: channel.name,
+									id: channel.id,
+								})),
+								label: 'Text Channels',
+								type: 'channel'
+							},
+							{
+								data: audioChannels?.map(channel => ({
+									icon: iconMap[channel.type],
+									name: channel.name,
+									id: channel.id
+								})),
+								label: 'Voice Channels',
+								type: 'channel'
+							},
+							{
+								data: videoChannels?.map(channel => ({
+									icon: iconMap[channel.type],
+									name: channel.name,
+									id: channel.id
+								})),
+								label: 'Video Channels',
+								type: 'channel'
+							},
+							{
+								data: members?.map(member => ({
+									icon: roleMap[member.role],
+									id: member.id,
+									name: member.profile.name,
+									role: member.role
+								})),
+								label: 'Members',
+								type: 'member'
+							}
+						]
+					}
+
+					/>
+
+					{/*{textChannels?.map(channel => (*/}
+					{/*	<div key={channel.id} className='px-3 py-2 text-sm cursor-pointer hover:bg-gray-700/10 dark:hover:bg-zinc-700/50 transition'>*/}
+					{/*		<span className='text-gray-500 dark:text-gray-400'>#</span>*/}
+					{/*		{channel.name}*/}
+					{/*	</div>*/}
+					{/*))}*/}
+				</div>
+			</ScrollArea>
 		</div>
 	);
 };
