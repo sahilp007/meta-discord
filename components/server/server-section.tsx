@@ -5,7 +5,7 @@ import {ServerWithMembersWithProfiles} from "@/types";
 import {MemberRole} from "@prisma/client";
 import {ChannelType} from ".prisma/client";
 import {ActionTooltip} from "@/components/action-tooltip";
-import {PlusCircle, Plus, Settings} from "lucide-react";
+import {Plus, Settings} from "lucide-react";
 import {useModal} from "@/hooks/use-modal-store";
 
 
