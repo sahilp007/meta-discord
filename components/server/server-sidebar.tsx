@@ -55,6 +55,8 @@ const ServerSidebar = async ({serverId}: ServerSidebarProps) => {
 	const audioChannels = server?.channels.filter(channel => channel.type === ChannelType.AUDIO);
 	const videoChannels = server?.channels.filter(channel => channel.type === ChannelType.VIDEO);
 	const members = server?.members.filter(member => member.profileId !== profile.id);
+	// const members = server?.members.filter(member => member.profileId !== profile.id);
+	const members = server?.members
 
 	if(!server) {
 		redirect('/');
@@ -121,6 +123,23 @@ const ServerSidebar = async ({serverId}: ServerSidebarProps) => {
 					{/*	</div>*/}
 					{/*))}*/}
 				</div>
+				{!!members?.length && (<div className='mb-2'>
+					<ServerSection
+						sectionType='members'
+						label='Member List'
+						server={server}
+						role={role}
+					/>
+					<div className=''>{members?.map(member => (
+						<ServerMember
+							member={member}
+							server={server}
+							key={member.id}
+						/>
+					))}
+					</div>
+					</div>
+					)}
 			</ScrollArea>
 		</div>
 	);
