@@ -20,17 +20,17 @@ const iconMap = {
 	[ChannelType.VIDEO]: Video
 }
 
-const roleMap = {
-	[MemberRole.ADMIN]: <ShieldAlert className='text-rose-500 h-4 w-4 mr-2'/>,
-	[MemberRole.MEMBER]: null,
-	[MemberRole.MODERATOR]: <ShieldCheck className='text-indigo-500 h-4 w-4 mr-2'/>,
-}
+// const roleMap = {
+// 	[MemberRole.ADMIN]: <ShieldAlert className='text-rose-500 h-4 w-4 mr-2'/>,
+// 	[MemberRole.MEMBER]: null,
+// 	[MemberRole.MODERATOR]: <ShieldCheck className='text-indigo-500 h-4 w-4 mr-2'/>,
+// }
 
 const ServerChannel = ({channel,server,role}:ServerChannelProps) => {
 	const params = useParams();
 	const {onOpen} = useModal();
 
-	const router = useRouter();
+	// const router = useRouter();
 	const Icon = iconMap[channel.type];
 
 	return (
@@ -53,6 +53,7 @@ const ServerChannel = ({channel,server,role}:ServerChannelProps) => {
 				<div className="ml-auto flex items-center gap-x-2">
 					<ActionTooltip label="Edit" align='center'>
 						<Edit
+							onClick={() => onOpen('editChannel', {server, channel})}
 							className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
 						/>
 					</ActionTooltip>
