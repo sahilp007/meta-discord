@@ -6,7 +6,7 @@ export const initialProfile = async () => {
 	const user = await currentUser();
 
 	if (!user) {
-		debugger;
+		// debugger;
 		return await redirectToSignIn();
 	}
 
@@ -19,7 +19,7 @@ export const initialProfile = async () => {
 	if (profile) {
 		return profile;
 	}
-	debugger;
+	// debugger;
 	const newProfile = await db.profile.create({
 		data: {
 			userId: user.id,

@@ -6,6 +6,7 @@ import {Hash, Mic, ShieldAlert, ShieldCheck, Video, Trash, Edit} from "lucide-re
 import {useParams, useRouter} from "next/navigation";
 import {cn} from "@/lib/utils";
 import {ActionTooltip} from "@/components/action-tooltip";
+import {useModal} from "@/hooks/use-modal-store";
 
 
 interface ServerChannelProps {
@@ -27,6 +28,8 @@ const roleMap = {
 
 const ServerChannel = ({channel,server,role}:ServerChannelProps) => {
 	const params = useParams();
+	const {onOpen} = useModal();
+
 	const router = useRouter();
 	const Icon = iconMap[channel.type];
 
@@ -55,6 +58,7 @@ const ServerChannel = ({channel,server,role}:ServerChannelProps) => {
 					</ActionTooltip>
 					<ActionTooltip label="Delete" align='center'>
 						<Trash
+							onClick={() => onOpen('deleteChannel', {server, channel})}
 							className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
 						/>
 					</ActionTooltip>

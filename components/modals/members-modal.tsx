@@ -42,7 +42,7 @@ export const MembersModal = () => {
 	const {server} = data as { server: ServerWithMembersWithProfiles };
 	const onRoleChange = async (role: MemberRole, memberId: string) => {
 		try {
-			debugger;
+			// debugger;
 			setLoadingId(memberId);
 			const url = qs.stringifyUrl({
 				url: `/api/members/${memberId}`, query: {
@@ -61,7 +61,7 @@ export const MembersModal = () => {
 	}
 const onKick = async (memberId: string) => {
 		try {
-			debugger;
+			// debugger;
 			setLoadingId(memberId);
 			const url = qs.stringifyUrl({
 				url: `/api/members/${memberId}`, query: {
