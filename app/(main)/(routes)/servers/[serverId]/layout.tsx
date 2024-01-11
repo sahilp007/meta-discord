@@ -26,7 +26,7 @@ const ServerIdLayout = async ({children, params}: { children: React.ReactNode; p
 		return redirect('/')
 	}
 	return (
-		<div>
+		<div className='h-full'>
 			<div className='hidden md:flex h-full w-60 z-20 flex-col inset-y-0 fixed'>
 				<ServerSidebar serverId={params.serverId}/>
 			</div>

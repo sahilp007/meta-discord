@@ -91,13 +91,6 @@ const ServerSidebar = async ({serverId}: ServerSidebarProps) => {
 						}]}
 
 					/>
-
-					{/*{textChannels?.map(channel => (*/}
-					{/*	<div key={channel.id} className='px-3 py-2 text-sm cursor-pointer hover:bg-gray-700/10 dark:hover:bg-zinc-700/50 transition'>*/}
-					{/*		<span className='text-gray-500 dark:text-gray-400'>#</span>*/}
-					{/*		{channel.name}*/}
-					{/*	</div>*/}
-					{/*))}*/}
 				</div>
 				<Separator className='bg-zinc-500 dark:bg-zink-700 rounded-md my-2'/>
 				{!!textChannels?.length && (<div className='mb-2'>

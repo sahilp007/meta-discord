@@ -3,6 +3,7 @@ import {redirect} from "next/navigation";
 import {redirectToSignIn} from "@clerk/nextjs";
 import {db} from "@/lib/db";
 import React from "react";
+import {ChatHeader} from "@/components/chat/chat-header";
 
 interface ServerIdPageProps {
 	params: {
@@ -38,14 +39,20 @@ const ServerIdPage = async ({params}: ServerIdPageProps) => {
 	const initialChannel = server?.channels[0];
 	if (initialChannel?.name !== 'general')
 		return (
-			<>
+			<div className='h-full flex flex-col '>
+				<div className='bg-[#fff7ed] dark:bg-[#393934] flex flex-col '>
+					<ChatHeader
+						name='MD'
+						type='channel'
+						serverId={params.serverId}
+					/>
+				</div>
 				<div style={{
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'center',
 					alignItems: 'center',
-					// margin: 'auto',
-					height: '100vh',
+					height: '100%',
 				}}>
 
 					<iframe src="https://sahilp007.github.io/Letter-Animations/index.html" style={{
@@ -60,19 +67,25 @@ const ServerIdPage = async ({params}: ServerIdPageProps) => {
 					}}></iframe>
 
 				</div>
-			</>
+			</div>
 		)
 
 	return (
-		<div>
-			<>
+		<div className='h-full flex flex-col '>
+
+				<div className='bg-[#fff7ed] dark:bg-[#393934] flex flex-col'>
+					<ChatHeader
+						name='MD'
+						type='channel'
+						serverId={params.serverId}
+					/>
+				</div>
 				<div style={{
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'center',
 					alignItems: 'center',
-					// margin: 'auto',
-					height: '100vh',
+					height: '100%',
 				}}>
 
 					<iframe src="https://sahilp007.github.io/Letter-Animations/index.html" style={{
@@ -87,7 +100,6 @@ const ServerIdPage = async ({params}: ServerIdPageProps) => {
 					}}></iframe>
 
 				</div>
-			</>
 		</div>
 	);
 }
