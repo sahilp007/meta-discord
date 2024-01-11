@@ -4,7 +4,6 @@ import {redirectToSignIn} from "@clerk/nextjs";
 import {db} from "@/lib/db";
 import {redirect} from "next/navigation";
 import {ChatHeader} from "@/components/chat/chat-header";
-import {MobileToggle} from "@/components/mobile-toggle";
 
 
 interface ChannelIdPageProps {
