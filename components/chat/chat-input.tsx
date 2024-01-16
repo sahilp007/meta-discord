@@ -9,6 +9,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem} from "@/components/ui/form";
 import {Plus, Smile} from "lucide-react";
 import {Input} from "@/components/ui/input";
+import {useModal} from "@/hooks/use-modal-store";
 
 interface ChatInputProps {
 	apiUrl: string;
@@ -23,6 +24,8 @@ const formSchema = z.object({
 
 export const ChatInput = ({apiUrl, name, type, query}: ChatInputProps) => {
 
+	const {onOpen} = useModal();
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		defaultValues: {
 			content: '',
@@ -34,26 +37,27 @@ export const ChatInput = ({apiUrl, name, type, query}: ChatInputProps) => {
 
 		try {
 			const url = qs.stringifyUrl({
-				url: apiUrl, query
-			})
-			await axios.post(url, values);
+				url: apiUrl, query,
+			});
+			debugger;
+			const res = await axios.post(url, values);
+			console.log(res);
 		} catch (e) {
 			console.error(e);
 		}
 
-		console.log(values);
+		//console.log(values);
 	}
 
 
 	return (<Form {...form}>
 		<form onSubmit={form.handleSubmit(onSubmit)}>
-			<FormField render={({field}) => (<FormItem>
+			<FormField control={form.control} name='content' render={({field}) => (<FormItem>
 				<FormControl>
 					<div className='relative p-4 pb-6'>
 						<button
 							type="button"
-							onClick={() => {
-							}}
+							onClick={() => onOpen('messageFile', {apiUrl, query})}
 							className="absolute top-7 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400
 								hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1
 								flex items-center justify-center"
@@ -73,8 +77,8 @@ export const ChatInput = ({apiUrl, name, type, query}: ChatInputProps) => {
 						</div>
 					</div>
 				</FormControl>
-			</FormItem>)} name='content' control={form.control}/>
+			</FormItem>)}
+			/>
 		</form>
-
 	</Form>);
 };
