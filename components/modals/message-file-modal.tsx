@@ -80,11 +80,11 @@ export const MessageFileModal = () => {
 											endpoint='messageFile'
 											value={field.value}
 											onChange={field.onChange}
-											onBeforeUploadBegin={(files) => {
-												// setFileName(files[0]?.name || null);
-												console.log(files[0])
-												return files;
-											}}
+											// onBeforeUploadBegin={(files) => {
+											// 	// setFileName(files[0]?.name || null);
+											// 	console.log(files[0])
+											// 	return files;
+											// }}
 										/>
 									</FormControl>
 									<FormMessage className='text-red-500'>
