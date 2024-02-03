@@ -77,8 +77,7 @@ export const ChatItem = ({
 	}, []);
 
 	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
-		defaultValues: {
+		resolver: zodResolver(formSchema), defaultValues: {
 			content: content
 		}
 	});
@@ -86,12 +85,11 @@ export const ChatItem = ({
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
 			const url = qs.stringifyUrl({
-				url: `${socketUrl}/${id}`,
-				query: socketQuery,
+				url: `${socketUrl}/${id}`, query: socketQuery,
 			});
 
 			await axios.patch(url, values);
-debugger;
+			debugger;
 			setIsEditing(false);
 			form.reset();
 		} catch (error) {
@@ -111,239 +109,108 @@ debugger;
 	}, [content, form]);
 
 
-	return (
-		<div className='rounded-xl relative group flex items-center hover:bg-black/5 p-4 transition w-full'>
-			<div className="group flex gap-x-2 items-start w-full">
-				<div onClick={onMemberClick}
-				     className="w-full flex items-center cursor-pointer hover:drop-shadow-md transition">
-					{(member.profile.imageUrl !== undefined ? (<Image alt='avatar'
-					                                                  src={member.profile.imageUrl}
-					                                                  width={36}
-					                                                  height={36}
-					                                                  className='rounded-full select-none none mr-2 mb-auto'/>) : (
-						<User/>))}
-					<div className="flex flex-col w-full">
-						<div className="flex flex-col  items-start gap-x-2">
-							<div className="w-full flex items-center">
-								<p onClick={onMemberClick}
-								   className="font-semibold text-sm hover:underline cursor-pointer">
-									{member.profile.name}
-								</p>
-								<ActionTooltip label={member.role} align='start'>
-									{roleIconMap[member.role]}
-								</ActionTooltip>
-								<span className='px-2 flex-1 text-end text-xs text-zinc-500 dark:text-zinc-400'>
+	return (<div className='rounded-xl relative group flex items-center hover:bg-black/5 p-4 transition w-full'>
+		<div className="group flex gap-x-2 items-start w-full">
+			<div onClick={onMemberClick}
+			     className="w-full flex items-center cursor-pointer hover:drop-shadow-md transition">
+				{(member.profile.imageUrl !== undefined ? (<Image alt='avatar'
+				                                                  src={member.profile.imageUrl}
+				                                                  width={36}
+				                                                  height={36}
+				                                                  className='rounded-full select-none none mr-2 mb-auto'/>) : (
+					<User/>))}
+				<div className="flex flex-col w-full">
+					<div className="flex flex-col  items-start gap-x-2">
+						<div className="w-full flex items-center">
+							<p onClick={onMemberClick}
+							   className="font-semibold text-sm hover:underline cursor-pointer">
+								{member.profile.name}
+							</p>
+							<ActionTooltip label={member.role} align='end'>
+								{roleIconMap[member.role]}
+							</ActionTooltip>
+							<span className='px-2 flex-1 text-end text-xs text-zinc-500 dark:text-zinc-400'>
 												{timestamp}
 											</span>
-							</div>
-							{/*<span className='float-left w-fit text-wrap ' style={{ overflowWrap: "anywhere"}}>*/}
-							{/*	{content}*/}
-							{/*</span>*/}
-							{isImage && (<a href={fileUrl} target='_blank' rel='noreferrer noopener'
-							                className='rounded-lg relative mt-2 border flex items-center bg-secondary max-h-96 overflow-hidden'>
-									<Image src={fileUrl} alt={content} width={200} height={200}
-									       className='object-cover'/>
-								</a>
-							)}
-							{isPdf && (<div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
-									<FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400"/>
-									<a
-										href={fileUrl}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
-									>
-										PDF File
-									</a>
-									{/*<FileUpload onChange={()=>{}} value={fileUrl}*/}
-									{/*            endpoint='messageFile'*/}
-									{/*            fileDisplay = "true"*/}
-									{/*/>*/}
-								</div>
-							)}
-							{!fileUrl && !isEditing && (
-								<p style={{ overflowWrap: "anywhere"}} className={cn(
-									"text-sm text-zinc-600 dark:text-zinc-300",
-									deleted && "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1"
-								)}>
-									{content}
-									{isUpdated && !deleted && (
-										<span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
+						</div>
+						{/*<span className='float-left w-fit text-wrap ' style={{ overflowWrap: "anywhere"}}>*/}
+						{/*	{content}*/}
+						{/*</span>*/}
+						{isImage && (<a href={fileUrl} target='_blank' rel='noreferrer noopener'
+						                className='rounded-lg relative mt-2 border flex items-center bg-secondary max-h-96 overflow-hidden'>
+							<Image src={fileUrl} alt={content} width={200} height={200}
+							       className='object-cover'/>
+						</a>)}
+						{isPdf && (<div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
+							<FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400"/>
+							<a
+								href={fileUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
+							>
+								PDF File
+							</a>
+							{/*<FileUpload onChange={()=>{}} value={fileUrl}*/}
+							{/*            endpoint='messageFile'*/}
+							{/*            fileDisplay = "true"*/}
+							{/*/>*/}
+						</div>)}
+						{!fileUrl && !isEditing && (<p style={{overflowWrap: "anywhere"}}
+						                               className={cn("text-sm text-zinc-600 dark:text-zinc-300", deleted && "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1")}>
+							{content}
+							{isUpdated && !deleted && (
+								<span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
                   (edited)
-                </span>
-									)}
-								</p>
-							)}
-							{!fileUrl && isEditing && (
-								<Form {...form}>
-									<form
-										className="flex items-center w-full gap-x-2 pt-2"
-										onSubmit={form.handleSubmit(onSubmit)}>
-										<FormField
-											control={form.control}
-											name="content"
-											render={({field}) => (
-												<FormItem className="flex-1">
-													<FormControl>
-														<div className="relative w-full">
-															<Input
-																disabled={isLoading}
-																className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
-																placeholder="Edited message"
-																{...field}
-															/>
-														</div>
-													</FormControl>
-												</FormItem>
-											)}
-										/>
-										<Button disabled={isLoading} size="sm" variant="primary">
-											Save
-										</Button>
-									</form>
-									<span className="text-[10px] mt-1 text-zinc-400">
+                </span>)}
+						</p>)}
+						{!fileUrl && isEditing && (<Form {...form}>
+							<form
+								className="flex items-center w-full gap-x-2 pt-2"
+								onSubmit={form.handleSubmit(onSubmit)}>
+								<FormField
+									control={form.control}
+									name="content"
+									render={({field}) => (<FormItem className="flex-1">
+										<FormControl>
+											<div className="relative w-full">
+												<Input
+													disabled={isLoading}
+													className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
+													placeholder="Edited message"
+													{...field}
+												/>
+											</div>
+										</FormControl>
+									</FormItem>)}
+								/>
+								<Button disabled={isLoading} size="sm" variant="primary">
+									Save
+								</Button>
+							</form>
+							<span className="text-[10px] mt-1 text-zinc-400">
                 Press escape to cancel, enter to save
               </span>
-								</Form>
-							)}
-						</div>
+						</Form>)}
 					</div>
-					{canDeleteMessage && (
-						<div
-							className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
-							{canEditMessage && (
-								<ActionTooltip label="Edit" align='start'>
-									<Edit
-										onClick={() => setIsEditing(true)}
-										className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
-									/>
-								</ActionTooltip>
-							)}
-							<ActionTooltip label="Delete" align='start'>
-								<Trash
-									className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
-								/>
-							</ActionTooltip>
-						</div>
-					)}
 				</div>
 			</div>
-		</div>);
+			{canDeleteMessage && (<div
+				className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
+				{canEditMessage && (<ActionTooltip label="Edit" align='end'>
+					<Edit
+						onClick={() => setIsEditing(true)}
+						className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+					/>
+				</ActionTooltip>)}
+				<ActionTooltip label="Delete" align='end'>
+					<Trash
+						className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+					/>
+				</ActionTooltip>
+			</div>)}
+
+		</div>
+	</div>);
 
 }
-// return (
-// 	<div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
-// 		<div className="group flex gap-x-2 items-start w-full">
-// 			<div className="cursor-pointer hover:drop-shadow-md transition">
-// 				{(member.profile.imageUrl !== undefined ? (<Image alt='avatar'
-// 				                                                  src={member.profile.imageUrl}
-// 				                                                  width={36}
-// 				                                                  height={36}
-// 				                                                  className='rounded-full select-none none mr-2 mb-auto'/>) : (
-// 					<User/>))}
-// 			</div>
-// 			<div className="flex flex-col w-full">
-// 				<div className="flex flex-col  items-start gap-x-2">
-// 					<div className="w-full flex items-center">
-// 						<p
-// 							className="font-semibold text-sm hover:underline cursor-pointer">
-// 							{member.profile.name}
-// 						</p>
-// 						<ActionTooltip label={member.role} align='start'>
-// 							{roleIconMap[member.role]}
-// 						</ActionTooltip>
-// 						<span className='px-2 flex-1 text-end text-xs text-zinc-500 dark:text-zinc-400'>
-// 								{timestamp}
-// 							</span>
-// 					</div>
-// 					{/*<span className='float-left w-fit text-wrap ' style={{ overflowWrap: "anywhere"}}>*/}
-// 					{/*	{content}*/}
-// 					{/*</span>*/}
-// 					{isImage && (<a href={fileUrl} target='_blank' rel='noreferrer noopener'
-// 					                className='rounded-lg relative mt-2 border flex items-center bg-secondary max-h-96 overflow-hidden'>
-// 							<Image src={fileUrl} alt={content} width={200} height={200}
-// 							       className='object-cover'/>
-// 						</a>
-// 					)}
-// 					{isPdf && (
-// 						<div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
-// 							<FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400"/>
-// 							<a
-// 								href={fileUrl}
-// 								target="_blank"
-// 								rel="noopener noreferrer"
-// 								className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
-// 							>
-// 								PDF File
-// 							</a>
-// 						</div>
-// 					)}
-// 					{!fileUrl && !isEditing && (
-// 						<p className={cn(
-// 							"text-sm text-zinc-600 dark:text-zinc-300",
-// 							deleted && "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1"
-// 						)}>
-// 							{content}
-// 							{isUpdated && !deleted && (
-// 								<span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
-//                   (edited)
-//                 </span>
-// 							)}
-// 						</p>
-// 					)}
-// 					{!fileUrl && isEditing && (
-// 						<Form {...form}>
-// 							<form
-// 								className="flex items-center w-full gap-x-2 pt-2"
-// 								onSubmit={form.handleSubmit(onSubmit)}>
-// 								<FormField
-// 									control={form.control}
-// 									name="content"
-// 									render={({field}) => (
-// 										<FormItem className="flex-1">
-// 											<FormControl>
-// 												<div className="relative w-full">
-// 													<Input
-// 														disabled={isLoading}
-// 														className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
-// 														placeholder="Edited message"
-// 														{...field}
-// 													/>
-// 												</div>
-// 											</FormControl>
-// 										</FormItem>
-// 									)}
-// 								/>
-// 								<Button disabled={isLoading} size="sm" variant="primary">
-// 									Save
-// 								</Button>
-// 							</form>
-// 							<span className="text-[10px] mt-1 text-zinc-400">
-//                 Press escape to cancel, enter to save
-//               </span>
-// 						</Form>
-// 					)}
-// 				</div>
-// 			</div>
-// 			{canDeleteMessage && (
-// 				<div
-// 					className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
-// 					{canEditMessage && (
-// 						<ActionTooltip label="Edit" align='start'>
-// 							<Edit
-// 								onClick={() => setIsEditing(true)}
-// 								className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
-// 							/>
-// 						</ActionTooltip>
-// 					)}
-// 					<ActionTooltip label="Delete" align='start'>
-// 						<Trash
-// 							className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
-// 						/>
-// 					</ActionTooltip>
-// 				</div>
-// 			)}
-// 		</div>
-// 		)
-// 	</div>
-// );
