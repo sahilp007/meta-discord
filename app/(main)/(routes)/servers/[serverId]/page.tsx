@@ -55,7 +55,7 @@ const ServerIdPage = async ({params}: ServerIdPageProps) => {
 					height: '100%',
 				}}>
 
-					<iframe src="https://sahilp007.github.io/Letter-Animations/index.html" style={{
+					<iframe src="https://sahilp007.github.io/Letter-Animationss/" style={{
 						display: 'flex',
 						flexDirection: 'column',
 						height: '100%',
@@ -88,7 +88,7 @@ const ServerIdPage = async ({params}: ServerIdPageProps) => {
 					height: '100%',
 				}}>
 
-					<iframe src="https://sahilp007.github.io/Letter-Animations/index.html" style={{
+					<iframe src="https://sahilp007.github.io/Letter-Animationss/" style={{
 						display: 'flex',
 						flexDirection: 'column',
 						height: '100%',
